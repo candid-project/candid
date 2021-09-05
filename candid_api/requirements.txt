@@ -1,0 +1,4 @@
+uvicorn==0.15.0
+fastapi==0.68.1
+psycopg2-binary
+gunicorn==20.1.0
