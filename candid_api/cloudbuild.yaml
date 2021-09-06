@@ -8,6 +8,13 @@ steps:
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['run', 'deploy', 'candidapi', '--image', 'gcr.io/scenic-cedar-324901/test_fastapi', '--region', 'us-west1']
+  args: ['run',
+         'deploy',
+         'candidapi',
+         '--image=gcr.io/scenic-cedar-324901/test_fastapi:latest',
+         '--region=us-west1',
+         '--cpu=1',
+         '--port=8080',
+         '--set-env-vars=DB_PASS=candid,ENV=prod,CLOUD_SQL_CONNECTION_NAME=scenic-cedar-324901:us-west1:candid-postgresql']
 images:
 - gcr.io/scenic-cedar-324901/test_fastapi
