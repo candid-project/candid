@@ -1,0 +1,13 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/scenic-cedar-324901/test_fastapi', '.']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/scenic-cedar-324901/test_fastapi']
+# Deploy container image to Cloud Run
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'candidapi', '--image', 'gcr.io/scenic-cedar-324901/test_fastapi', '--region', 'us-west1']
+images:
+- gcr.io/scenic-cedar-324901/test_fastapi
