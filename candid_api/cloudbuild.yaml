@@ -7,14 +7,18 @@ steps:
   args: ['push', 'gcr.io/scenic-cedar-324901/test_fastapi']
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: gcloud
-  args: ['run',
-         'deploy',
-         'candidapi',
-         '--image=gcr.io/scenic-cedar-324901/test_fastapi:latest',
-         '--region=us-west1',
-         '--cpu=1',
-         '--port=8080',
-         '--set-env-vars=DB_PASS=candid,ENV=prod,CLOUD_SQL_CONNECTION_NAME=scenic-cedar-324901:us-west1:candid-postgresql']
+  entrypoint: bash
+  args: ['-c',
+         'gcloud run deploy candidapi
+         --image=gcr.io/scenic-cedar-324901/test_fastapi:latest
+         --region=us-west1
+         --cpu=1
+         --port=8080
+         --set-env-vars=DB_PASS=$$DB_PASS,ENV=prod,CLOUD_SQL_CONNECTION_NAME=scenic-cedar-324901:us-west1:candid-postgresql']
+  secretEnv: ['DB_PASS']
+availableSecrets:
+  secretManager:
+  - versionName: projects/873434447877/secrets/DB_PASS/versions/1
+    env: 'DB_PASS'
 images:
 - gcr.io/scenic-cedar-324901/test_fastapi
