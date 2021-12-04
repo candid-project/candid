@@ -1,16 +1,15 @@
 steps:
-# Build the container image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/scenic-cedar-324901/test_fastapi', '.']
-# Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/scenic-cedar-324901/test_fastapi']
+# Build and push candid_api docker
+- id: candid-api-docker
+  name: gcr.io/cloud-builders/docker
+  entrypoint: ./scripts/build-docker.sh
+  args: ["candid_api"]
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: bash
   args: ['-c',
          'gcloud run deploy candidapi
-         --image=gcr.io/scenic-cedar-324901/test_fastapi:latest
+         --image=gcr.io/scenic-cedar-324901/candid_api:latest
          --region=us-west1
          --cpu=1
          --port=8080
@@ -21,4 +20,4 @@ availableSecrets:
   - versionName: projects/873434447877/secrets/DB_PASS/versions/1
     env: 'DB_PASS'
 images:
-- gcr.io/scenic-cedar-324901/test_fastapi
+- gcr.io/scenic-cedar-324901/candid_api

@@ -1,10 +1,10 @@
 FROM python:3.8
 
-ENV PYTHONUNBUFFERED True
+ENV PYTHONNUNBUFFERED True
 
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY . ./
+RUN mkdir /src
+COPY . /src
+WORKDIR /src/candid_api
 
 ENV DB_USER postgres
 ENV DB_NAME postgres
