@@ -16,6 +16,7 @@ requests = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
+pytest-cov = "*"
 black = "21.8-beta.0"
 flake8 = "3.9.2"
 isort = "5.9.3"
