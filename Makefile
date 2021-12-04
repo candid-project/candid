@@ -20,14 +20,39 @@ NPROC ?= $(shell nproc)
 clean:
 	rm -rf $(VENV)
 
+
+### System Installation ######################################
+
+.PHONY: local-setup
+local-setup: install git-hooks
+
+install:
+	poetry install --no-interaction --no-ansi --no-root
+	poetry run python ./setup.py build
+
+.PHONY: git-hooks
+git-hooks:
+	poetry run pre-commit install -t pre-commit \
+	&& poetry run pre-commit install -t pre-push
+
+### Static Analysis ##########################################
+
+PYTHON_FILES = setup.py src
+
 flake8:
-	$(BIN_FLAKE8)
+	poetry run flake8 $(PYTHON_FILES)
 
 isort:
-	$(BIN_ISORT) **/*.py --filter-files --interactive
+	poetry run isort .
 
-isort_check:
-	$(BIN_ISORT) **/*.py --filter-files --check-only
+mypy:
+	poetry run mypy --install-types --non-interactive $(PYTHON_FILES)
+
+.PHONY: lint
+lint:
+	poetry run flake8 $(PYTHON_FILES)
+	poetry run isort .
+	poetry run mypy --install-types --non-interactive $(PYTHON_FILES)
 
 start:
 	$(BIN_UVIVORN) candid.main:app --reload
