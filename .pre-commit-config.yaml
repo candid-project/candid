@@ -41,3 +41,18 @@ repos:
     rev: v5.9.3
     hooks:
     -   id: isort
+-   repo: local
+    hooks:
+    -   id: pytest
+        name: pytest
+        stages: [commit]
+        language: system
+        entry: bash -c "poetry run pytest"
+        types: [python]
+    -   id: pytest-cov
+        name: pytest
+        stages: [push]
+        language: system
+        entry: poetry run pytest --cov --cov-fail-under=90
+        types: [python]
+        pass_filenames: false

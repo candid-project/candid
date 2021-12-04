@@ -12,6 +12,7 @@ fastapi = "^0.68.2"
 uvicorn = {extras = ["standard"], version = "^0.15.0"}
 psycopg2-binary = "*"
 gunicorn = "*"
+requests = "*"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
@@ -21,6 +22,7 @@ isort = "5.9.3"
 mypy = "0.910"
 pre-commit = "2.15.0"
 blacken-docs = "1.11.0"
+coverage = "*"
 
 [build-system]
 requires = ["poetry-core"]
@@ -30,3 +32,9 @@ build-backend = "poetry.core.masonry.api"
 profile = "black"
 line_length = 88
 skip_gitignore = true
+
+[tool.coverage.run]
+omit = [".*", "*/site-packages/*"]
+
+[tool.coverage.report]
+fail_under = 80

@@ -54,6 +54,10 @@ lint:
 	poetry run isort .
 	poetry run mypy --install-types --non-interactive $(PYTHON_FILES)
 
+coverage:
+	poetry run coverage run -m pytest \
+	&& poetry run coverage report -m
+
 start:
 	$(BIN_UVIVORN) candid.main:app --reload
 
