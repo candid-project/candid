@@ -1,9 +1,15 @@
-FROM python:3.8
+FROM python:3.10
 
 ENV PYTHONNUNBUFFERED True
 
+RUN pip install "poetry==1.1.12"
+
+COPY ./poetry.lock /pyproject.toml /
+RUN poetry config virtualenvs.create false && \
+    poetry install -v --no-interaction --no-ansi --no-root
+
 RUN mkdir /src
-COPY . /src
+COPY ./src /src
 WORKDIR /src/candid_api
 
 ENV DB_USER postgres
@@ -11,6 +17,4 @@ ENV DB_NAME postgres
 ENV ENV dev
 ENV CLOUD_SQL_CONNECTION_NAME scenic-cedar-324901:us-west1:candid-postgresql
 
-RUN pip3 install --no-cache-dir -r requirements.txt
-
-CMD gunicorn test_fastapi:app -c gunicorn_config.py
+CMD poetry run gunicorn test_fastapi:app -c gunicorn_config.py

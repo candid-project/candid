@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "candid"
+version = "0.1.0"
+description = ""
+authors = ["steventimberman <stevetimberman@gmail.com>"]
+readme = "README.md"
+packages = [{include = "candid"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.68.2"
+uvicorn = {extras = ["standard"], version = "^0.15.0"}
+psycopg2-binary = "*"
+gunicorn = "*"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+black = "21.8-beta.0"
+flake8 = "3.9.2"
+isort = "5.9.3"
+mypy = "0.910"
+pre-commit = "2.15.0"
+blacken-docs = "1.11.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.isort]
+profile = "black"
+line_length = 88
+skip_gitignore = true

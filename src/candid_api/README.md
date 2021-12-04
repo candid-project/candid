@@ -47,6 +47,11 @@ You can see the container in the registry here: https://console.cloud.google.com
 Secret Manager: cloud secret manager is used to store the postgres database password (and later other things).  Secrets are passed in as environment variables defined in the cloudbuild script.  Secrets for the project can be viewed here: https://console.cloud.google.com/security/secret-manager?project=scenic-cedar-324901.
 
 
+Poetry: When building with poetry you have to first run the following otherwise it will ignore the poetry.lock file.
+```bash
+gcloud config set gcloudignore/enabled false
+```
+
 
 Instructions on deploying: https://cloud.google.com/run/docs/quickstarts/build-and-deploy/python
 Instructions on setting up sql connection from cloud run: https://cloud.google.com/sql/docs/mysql/connect-run#command-line
