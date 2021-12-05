@@ -13,7 +13,6 @@ WORKDIR /app
 
 ENV DB_USER postgres
 ENV DB_NAME postgres
-# ENV ENV dev
 ENV CLOUD_SQL_CONNECTION_NAME scenic-cedar-324901:us-west1:candid-postgresql
 
 CMD poetry run gunicorn src.candid_api.test_fastapi:app -c src/candid_api/gunicorn_config.py
