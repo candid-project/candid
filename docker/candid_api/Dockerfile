@@ -8,13 +8,12 @@ COPY ./poetry.lock /pyproject.toml /
 RUN poetry config virtualenvs.create false && \
     poetry install -v --no-interaction --no-ansi --no-root
 
-RUN mkdir /src
-COPY ./src /src
-WORKDIR /src/candid_api
+COPY . /app
+WORKDIR /app
 
 ENV DB_USER postgres
 ENV DB_NAME postgres
-ENV ENV dev
+# ENV ENV dev
 ENV CLOUD_SQL_CONNECTION_NAME scenic-cedar-324901:us-west1:candid-postgresql
 
-CMD poetry run gunicorn test_fastapi:app -c gunicorn_config.py
+CMD poetry run gunicorn src.candid_api.test_fastapi:app -c src/candid_api/gunicorn_config.py
