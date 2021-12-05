@@ -39,6 +39,23 @@ poetry run gunicorn src.candid_api.test_fastapi:app -c src/candid_api/gunicorn_c
 ```
 
 
+## Schema Migrations
+
+Schema migrations are handled with Alembic.  Whether to apply changes to remote or local db is determined by env variables same as running the service.  Schema changes are created automatically by referencing the sqlalchemy models in db/models.py.
+
+To generate a new migration run:
+```sh
+poetry run alembic revision --autogenerate -m "Your message"
+```
+
+MAKE SURE YOU CHECK THE MIGRATION!  Alembic isn't perfect and for example if you rename a table, it will delete the original and make a new table and we will lose all the data in that table.  The file created by the previous command will appear in alembic/versions/.  Check the file manually to make sure it looks right.
+
+To apply the migration to the environment specified in your env vars, run:
+```sh
+poetry run alembic upgrade head
+```
+
+
 ## Deploy
 
 Follow the guide here to setup up gcloud command-line tool: https://cloud.google.com/sdk/docs/quickstart.
