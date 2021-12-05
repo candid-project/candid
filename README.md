@@ -29,6 +29,16 @@ $ make coverage
 You must pass all linting checks and pytest tests in order to commit and you must have a test coverage over 80% to push.
 
 
+## Running locally
+
+env_template.sh provides a template for the connection environment variables you need.  Follow instructions in db/ to setup a local postgres db and/or use the cloud_sql_proxy (instructions in src/candid_api/README.md).  I keep two copies, one for a local db connection and the other for gcloud connection via the cloud_sql_proxy.
+
+To launch candid_api run:
+```sh
+poetry run gunicorn src.candid_api.test_fastapi:app -c src/candid_api/gunicorn_config.py
+```
+
+
 ## Deploy
 
 Follow the guide here to setup up gcloud command-line tool: https://cloud.google.com/sdk/docs/quickstart.
