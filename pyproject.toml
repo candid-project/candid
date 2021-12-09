@@ -4,28 +4,28 @@ version = "0.1.0"
 description = ""
 authors = ["steventimberman <stevetimberman@gmail.com>"]
 readme = "README.md"
-packages = [{include = "candid"}]
+packages = [{include = "candid_api", from = "src"}, {include = "db"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.68.2"
 uvicorn = {extras = ["standard"], version = "^0.15.0"}
-psycopg2-binary = "*"
-gunicorn = "*"
-requests = "*"
-alembic = "*"
-SQLAlchemy = "*"
+psycopg2-binary = "^2.9.2"
+gunicorn = "^20.1.0"
+requests = "^2.26.0"
+alembic = "^1.7.5"
+SQLAlchemy = "^1.4.27"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^6.2.5"
-pytest-cov = "*"
-black = "21.8-beta.0"
-flake8 = "3.9.2"
-isort = "5.9.3"
-mypy = "0.910"
-pre-commit = "2.15.0"
-blacken-docs = "1.11.0"
-coverage = "*"
+pytest-cov = "^3.0.0"
+black = "^21.12-beta.0"
+flake8 = "^4.0.1"
+isort = "^5.10.1"
+mypy = "^0.910"
+pre-commit = "^2.16.0"
+blacken-docs = "^1.12.0"
+coverage = "^6.2"
 
 [build-system]
 requires = ["poetry-core"]

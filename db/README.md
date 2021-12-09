@@ -30,6 +30,9 @@ template1=# GRANT ALL PRIVILEGES ON DATABASE candid_postgres_local to {your user
 template1=# \q
 ```
 
+Then add your local database info to candid/env_template.sh, including including the environment variable `CLOUD_SQL_CONNECTION_NAME`.
+
+
 You should now be able to connect to the db from your user account.  First log out of superuser with `exit`.  Then try connecting to the db with:
 ```sh
 psql -d candid_postgres_local -U {your user}
